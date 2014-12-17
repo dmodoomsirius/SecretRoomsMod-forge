@@ -32,8 +32,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import com.github.abrarsyed.secretroomsmod.common.SecretRooms;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author Ordinastie

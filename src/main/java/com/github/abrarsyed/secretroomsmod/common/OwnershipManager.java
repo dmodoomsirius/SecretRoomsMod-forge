@@ -34,9 +34,9 @@ import com.github.abrarsyed.secretroomsmod.network.PacketManager;
 import com.github.abrarsyed.secretroomsmod.network.PacketSyncOwnership;
 import com.google.common.collect.Maps;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 
 public class OwnershipManager
 {

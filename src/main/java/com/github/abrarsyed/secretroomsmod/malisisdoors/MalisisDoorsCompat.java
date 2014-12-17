@@ -30,7 +30,7 @@ import net.minecraft.block.material.Material;
 
 import com.github.abrarsyed.secretroomsmod.common.SecretRooms;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * @author Ordinastie

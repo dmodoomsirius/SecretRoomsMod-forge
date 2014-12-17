@@ -1,0 +1,60 @@
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            configuration = configurations.deployerJars
+
+            repository(url: "http://files.minecraftforge.net/maven/manage/upload") {
+                authentication(userName: "AbrarSyed", password: project.forgeMavenPass) // the elvis operator. look it up.
+            }
+
+            pom {
+                groupId = project.group
+                version = project.version
+                artifactId = project.archivesBaseName
+                project {
+                    name project.archivesBaseName
+                    packaging 'jar'
+                    description 'SecretRoomsMod '
+                    url 'https://github.com/AbrarSyed/SecretRoomsMod-forge'
+
+                    scm {
+                        url 'https://github.com/AbrarSyed/SecretRoomsMod-forge'
+                        connection 'scm:git:git://github.com/AbrarSyed/SecretRoomsMod-forge.git'
+                        developerConnection 'scm:git:git@github.com:AbrarSyed/SecretRoomsMod-forge.git'
+                    }
+
+                    issueManagement {
+                        system 'github'
+                        url 'https://github.com/AbrarSyed/SecretRoomsMod-forge/issues'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Eclipse Public Liscence'
+                            url 'http://www.eclipse.org/legal/epl-v10.html'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'AbrarSyed'
+                            name 'AbrarSyed'
+                            roles { role 'developer' }
+                        }
+                        developer {
+                            id 'AlexBegt'
+                            name 'AlexBegt'
+                            roles { role 'contributor' }
+                        }
+                        developer {
+                            id 'CaptainShadows'
+                            name 'CaptainShadows'
+                            roles { role 'contributor' }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -16,9 +16,9 @@ import com.github.abrarsyed.secretroomsmod.blocks.BlockOneWay;
 import com.github.abrarsyed.secretroomsmod.blocks.TileEntityCamo;
 import com.github.abrarsyed.secretroomsmod.common.SecretRooms;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.client.registry.ISimpleBlockRenderingHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(value = Side.CLIENT)
 public class BlockRenderer implements ISimpleBlockRenderingHandler
