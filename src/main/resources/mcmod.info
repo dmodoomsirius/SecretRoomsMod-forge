@@ -7,8 +7,8 @@
   "mcversion": "${mcversion}",
   "url": "http://www.minecraftforum.net/topic/546192-",
   "updateUrl": "http://files.minecraftforge.net/SecretRoomsMod/",
-  "authors": ["AbrarSyed", "alexbegt"],
-  "credits": "Authored by AbrarSyed, based on an original idea by iampeppino. Help provided by alexbegt.",
+  "authors": ["TheTemportalist", "Parker8283", "Dmod"],
+  "credits": "Idea by: iampeppino | Created by: AbrarSyed | Help provided by alexbegt | Maintained currently by authors.",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
