@@ -1,5 +1,5 @@
 # creative tab
-itemGroup.secretroomsmod=Secret Blocks
+itemGroup.secretrooms=Secret Blocks
 
 # chat messages
 message.secretroomsmod.oneWay.towards=-- !!! OneWayBlock facing set to Towards !!! --
@@ -36,3 +36,5 @@ tile.SolidAir.name=Solid Air
 item.SecretIronDoorItem.name=Secret Iron Door
 item.CamoflaugePaste.name=Camouflage Paste
 item.SecretWoodenDoorItem.name=Secret Wooden Door
+
+tile.secretrooms:basic.name=Basic Camo Block

@@ -16,7 +16,7 @@ public class Helper {
 
 	public static String getName(ItemStack itemStack, boolean hasID, boolean hasMeta) {
 		if (itemStack == null) return "";
-		String name = "";
+		String name;
 		if (Block.getBlockFromItem(itemStack.getItem()) == null) {
 			name = GameData.getItemRegistry().getNameForObject(itemStack.getItem()).toString();
 		}
@@ -24,8 +24,7 @@ public class Helper {
 			name = GameData.getBlockRegistry().getNameForObject(Block.getBlockFromItem(
 					itemStack.getItem())).toString();
 		}
-		GameRegistry.UniqueIdentifier ui = new GameRegistry.UniqueIdentifier(name);
-		return (hasID ? ui.modId : "") + name + (hasMeta ? itemStack.getItemDamage() : "");
+		return name + (hasMeta ? ":" + itemStack.getItemDamage() : "");
 	}
 
 	public static ItemStack getItemStack(String name) {

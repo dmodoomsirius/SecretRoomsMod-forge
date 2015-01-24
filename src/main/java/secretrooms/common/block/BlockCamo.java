@@ -25,12 +25,17 @@ import secretrooms.common.tile.TECamo;
  */
 public class BlockCamo extends BlockContainer {
 
+	private final String unlocalName;
+
 	public BlockCamo(Material materialIn, String name) {
 		super(materialIn);
-		this.setUnlocalizedName(name);
+		this.unlocalName = SecretRooms.MODID + ":" + name;
+		this.setUnlocalizedName(this.getName());
 		GameRegistry.registerBlock(this, name);
 		SecretRooms.camouflaged.add(this);
 	}
+
+	public String getName() {return this.unlocalName;}
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
@@ -41,47 +46,44 @@ public class BlockCamo extends BlockContainer {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state,
 			EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
 		TECamo tile = (TECamo)worldIn.getTileEntity(pos);
-		IBlockState camoState = null;
 
-		if (playerIn.getCurrentEquippedItem() != null) {
-			ItemStack stack = playerIn.getCurrentEquippedItem();
-			if (Block.getBlockFromItem(stack.getItem()) != null) {
-				camoState = Block.getBlockFromItem(stack.getItem()).
-						getStateFromMeta(stack.getMetadata());
-			}
+		ItemStack handStack = playerIn.getCurrentEquippedItem();
+		if (handStack == null) {
+			return tile.setCamo(side, null);
 		}
-
-		if (playerIn.isSneaking()) {
-			// all sides
-			return tile.setCamo(null, camoState);
+		else if (Block.getBlockFromItem(handStack.getItem()) != null) {
+			IBlockState camoState = Block.getBlockFromItem(handStack.getItem()).
+					getStateFromMeta(handStack.getMetadata());
+			boolean setCamo = tile.setCamo(side, camoState);
+			worldIn.markBlockForUpdate(pos);
+			worldIn.scheduleUpdate(pos, state.getBlock(), 10);
+			return setCamo;
 		}
-		else {
-			// this side
-			return tile.setCamo(side, camoState);
-		}
-
+		return false;
 	}
 
 	@Override
 	protected BlockState createBlockState() {
-		return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[1]);
+		return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{SecretRooms.CAMO});
 	}
 
 	@Override
 	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return ((IExtendedBlockState)state).withProperty(
-				SecretRooms.CAMO, ((TECamo)world.getTileEntity(pos)).getCamo_Names()
-		);
-	}
-
-	@Override
-	public String getUnlocalizedName() {
-		return SecretRooms.MODID + ":" + super.getUnlocalizedName();
+		TECamo tile = (TECamo)world.getTileEntity(pos);
+		String names = "{}";
+		if (tile != null) names = tile.getCamo_Names();
+		return ((IExtendedBlockState)state).withProperty(SecretRooms.CAMO, names);
 	}
 
 	@Override
 	public int getRenderType() {
 		return 3;
 	}
+
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+
 
 }

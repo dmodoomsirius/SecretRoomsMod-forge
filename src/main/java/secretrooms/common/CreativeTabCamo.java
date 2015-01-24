@@ -8,13 +8,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class CreativeTabCamo extends CreativeTabs {
 
 	public CreativeTabCamo() {
-		super(com.github.abrarsyed.secretroomsmod.old.common.SecretRooms.MODID);
+		super(SecretRooms.MODID);
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Item getTabIconItem() {
-		return com.github.abrarsyed.secretroomsmod.old.common.SecretRooms.camoPaste;
+		return Item.getItemFromBlock(SecretRooms.SCBlocks.basic);//Items.stick;//SecretRooms.camoPaste;
 	}
 
 }

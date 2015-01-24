@@ -1,5 +1,8 @@
 package secretrooms.common;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,6 +19,7 @@ import secretrooms.common.tile.TECamo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author TheTemportalist
@@ -28,9 +32,9 @@ import java.util.List;
 )
 public class SecretRooms {
 
-	public static final String MODID = "secretroomsmod";
-	public static final String clientProxy = "com.modwarriors.secretrooms.client.ProxyClient";
-	public static final String serverProxy = "com.modwarriors.secretrooms.common.ProxyCommon";
+	public static final String MODID = "secretrooms";
+	public static final String clientProxy = "secretrooms.client.ProxyClient";
+	public static final String serverProxy = "secretrooms.common.ProxyCommon";
 
 	@SidedProxy(clientSide = SecretRooms.clientProxy, serverSide = SecretRooms.serverProxy)
 	public static ProxyCommon proxy;
@@ -38,7 +42,7 @@ public class SecretRooms {
 	@Mod.Instance(value = SecretRooms.MODID)
 	public static SecretRooms instance;
 
-	public static final List<Block> camouflaged = new ArrayList<Block>();
+	public static final List<BlockCamo> camouflaged = new ArrayList<BlockCamo>();
 
 	public static final IUnlistedProperty<String> CAMO = new IUnlistedProperty<String>() {
 		@Override
@@ -48,7 +52,12 @@ public class SecretRooms {
 
 		@Override
 		public boolean isValid(String value) {
-			return Helper.getItemStack(value) != null;
+			JsonObject json = new JsonParser().parse(value).getAsJsonObject();
+			for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
+				if (Helper.getItemStack(entry.getValue().getAsString()) == null)
+					return false;
+			}
+			return true;
 		}
 
 		@Override
@@ -77,8 +86,8 @@ public class SecretRooms {
 		public static void register() {
 			SCBlocks.registerTiles();
 
-			SCBlocks.basic = new BlockCamo(Material.rock, "Basic");
-			SCBlocks.basic.setCreativeTab(CreativeTabs.tabBlock);
+			SCBlocks.basic = new BlockCamo(Material.rock, "basic");
+			SCBlocks.basic.setCreativeTab(SecretRooms.tab);
 
 		}
 
@@ -107,6 +116,7 @@ public class SecretRooms {
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(SecretRooms.instance);
+		MinecraftForge.EVENT_BUS.register(SecretRooms.proxy);
 
 		SecretRooms.tab = new CreativeTabCamo();
 
