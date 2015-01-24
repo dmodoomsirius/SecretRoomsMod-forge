@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import secretrooms.common.SecretRooms;
 import secretrooms.common.tile.TECamo;
 
@@ -24,8 +25,10 @@ import secretrooms.common.tile.TECamo;
  */
 public class BlockCamo extends BlockContainer {
 
-	public BlockCamo(Material materialIn) {
+	public BlockCamo(Material materialIn, String name) {
 		super(materialIn);
+		this.setUnlocalizedName(name);
+		GameRegistry.registerBlock(this, name);
 		SecretRooms.camouflaged.add(this);
 	}
 
@@ -71,8 +74,14 @@ public class BlockCamo extends BlockContainer {
 		);
 	}
 
+	@Override
+	public String getUnlocalizedName() {
+		return SecretRooms.MODID + ":" + super.getUnlocalizedName();
+	}
 
-
-
+	@Override
+	public int getRenderType() {
+		return 3;
+	}
 
 }

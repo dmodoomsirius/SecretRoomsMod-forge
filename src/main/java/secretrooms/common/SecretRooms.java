@@ -1,6 +1,7 @@
 package secretrooms.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.property.IUnlistedProperty;
@@ -9,6 +10,9 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import secretrooms.common.block.BlockCamo;
+import secretrooms.common.tile.TECamo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,12 +67,18 @@ public class SecretRooms {
 
 	public static class SCBlocks {
 
+		public static Block basic;
+
 		public static void registerTiles() {
+			GameRegistry.registerTileEntity(TECamo.class, "camouflage");
 
 		}
 
 		public static void register() {
 			SCBlocks.registerTiles();
+
+			SCBlocks.basic = new BlockCamo(Material.rock, "Basic");
+			SCBlocks.basic.setCreativeTab(CreativeTabs.tabBlock);
 
 		}
 
