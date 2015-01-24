@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import secretrooms.common.Helper;
+import secretrooms.common.lib.FakeManager;
 
 /**
  * @author TheTemportalist
@@ -28,6 +29,7 @@ public class TECamo extends TileEntity {
 			this.globalState = null;
 			this.camoStates[side.getIndex()] = state;
 		}
+		FakeManager.get().getFakeWorld(this.getWorld()).update(this.pos, this.globalState);
 		return true;
 	}
 

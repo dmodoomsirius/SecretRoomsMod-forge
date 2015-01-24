@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import secretrooms.common.block.BlockCamo;
+import secretrooms.common.lib.FakeManager;
 import secretrooms.common.tile.TECamo;
 
 import java.util.ArrayList;
@@ -117,6 +119,9 @@ public class SecretRooms {
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(SecretRooms.instance);
 		MinecraftForge.EVENT_BUS.register(SecretRooms.proxy);
+		FakeManager.instance = new FakeManager();
+		MinecraftForge.EVENT_BUS.register(FakeManager.instance);
+		FMLCommonHandler.instance().bus().register(FakeManager.instance);
 
 		SecretRooms.tab = new CreativeTabCamo();
 
