@@ -25,7 +25,6 @@ public class FakeManager {
 		this.fakeWorlds = new HashMap<Integer, FakeWorld>();
 	}
 
-	@SubscribeEvent
 	public void onServerStop(FMLServerStoppingEvent e) {
 		this.fakeWorlds.clear();
 	}

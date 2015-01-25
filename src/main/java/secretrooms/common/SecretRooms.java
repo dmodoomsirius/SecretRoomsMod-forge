@@ -3,7 +3,6 @@ package secretrooms.common;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,8 +15,9 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import secretrooms.common.block.BlockCamo;
+import secretrooms.common.block.BlockEmulator;
 import secretrooms.common.lib.FakeManager;
-import secretrooms.common.tile.TECamo;
+import secretrooms.common.tile.TEEmulator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,18 +78,19 @@ public class SecretRooms {
 
 	public static class SCBlocks {
 
-		public static Block basic;
+		public static BlockEmulator emulator;
 
 		public static void registerTiles() {
-			GameRegistry.registerTileEntity(TECamo.class, "camouflage");
+			GameRegistry.registerTileEntity(TEEmulator.class, "emulator");
 
 		}
 
 		public static void register() {
 			SCBlocks.registerTiles();
 
-			SCBlocks.basic = new BlockCamo(Material.rock, "basic");
-			SCBlocks.basic.setCreativeTab(SecretRooms.tab);
+			SCBlocks.emulator = new BlockEmulator(Material.rock, SecretRooms.MODID, "basic",
+					TEEmulator.class);
+			SCBlocks.emulator.setCreativeTab(SecretRooms.tab);
 
 		}
 

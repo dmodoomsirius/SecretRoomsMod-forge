@@ -15,7 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class Helper {
 
 	public static String getName(ItemStack itemStack, boolean hasID, boolean hasMeta) {
-		if (itemStack == null) return "";
+		if (itemStack == null) return null;
 		String name;
 		if (Block.getBlockFromItem(itemStack.getItem()) == null) {
 			name = GameData.getItemRegistry().getNameForObject(itemStack.getItem()).toString();
@@ -27,8 +27,8 @@ public class Helper {
 		return name + (hasMeta ? ":" + itemStack.getItemDamage() : "");
 	}
 
-	public static ItemStack getItemStack(String name) {
-		if (!name.matches("(.*):(.*)")) return null;
+	public static String[] getDetails(String name) {
+		if (name == null || (!name.matches("(.*):(.*)"))) return null;
 		int endNameIndex = name.length();
 		int metadata = OreDictionary.WILDCARD_VALUE;
 
@@ -39,14 +39,23 @@ public class Helper {
 
 		String modid = name.substring(0, name.indexOf(':'));
 		String itemName = name.substring(name.indexOf(':') + 1, endNameIndex);
-		Block block = GameRegistry.findBlock(modid, itemName);
-		Item item = GameRegistry.findItem(modid, itemName);
+		return new String[]{modid, itemName, metadata + ""};
+	}
+
+	public static ItemStack getItemStack(String name) {
+		if (name == null) return null;
+		String[] details = Helper.getDetails(name);
+		if (details == null) return null;
+		Block block = GameRegistry.findBlock(details[0], details[1]);
+		Item item = GameRegistry.findItem(details[0], details[1]);
+		int metadata = Integer.parseInt(details[2]);
 		return block != null ?
 				new ItemStack(block, 1, metadata) :
 				(item != null ? new ItemStack(item, 1, metadata) : null);
 	}
 
 	public static String getNameFromState(IBlockState state) {
+		if (state == null) return null;
 		Block block = state.getBlock();
 		return Helper.getName(
 				new ItemStack(block, 1, block.getMetaFromState(state)), true, true
@@ -62,6 +71,14 @@ public class Helper {
 			}
 		}
 		return null;
+	}
+
+	public static ItemStack getStackFromState(IBlockState state) {
+		return Helper.getItemStack(Helper.getNameFromState(state));
+	}
+
+	public static IBlockState getStateFromStack(ItemStack stack) {
+		return Helper.getStateFromName(Helper.getName(stack, true, true));
 	}
 
 	public static String getCamoString(ItemStack itemStack) {

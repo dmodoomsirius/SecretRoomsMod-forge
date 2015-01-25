@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 /**
  * @author TheTemportalist
@@ -37,5 +38,12 @@ public class BlockHolder {
 			this.tagCompound = null;
 	}
 
+	public TileEntity getTile(World world, BlockPos pos) {
+		if (this.state == null || this.tagCompound == null) return null;
+		TileEntity tile = TileEntity.createAndLoadEntity(this.tagCompound);
+		tile.setWorldObj(world);
+		tile.setPos(pos);
+		return tile;
+	}
 
 }
